@@ -294,7 +294,7 @@ const messageToPrint = (message) => {
 
 
 function injectData(data) {
-    
+
     const homeHead = `
     <head>
         <meta charset="UTF-8">
@@ -502,7 +502,7 @@ function toBarGraphSvg(data) {
         const yPos = endY - 4 - (height); // Y position is 420 - 4 - (height / 2)
 
         svgContent += `<rect x="${currentX}" y="${yPos}" height="${height}" width="40" stroke-width="0" stroke="none" fill="white" />`;
-        svgContent += `<text x="${currentX+20}" y="${startY-26}" style="writing-mode: tb;">${name}: ${amount}</text>`;
+        svgContent += `<text x="${currentX + 20}" y="${startY - 26}" style="writing-mode: tb;">${name}: ${amount}</text>`;
 
         currentX += 45; // Increment X position for the next rectangle
     });
@@ -541,18 +541,28 @@ async function handleSignIn(e) {
     let fetchParams = {
         method: "POST",
         headers: {
-            "Authorization": `Basic ${window.btoa(`${credential}:${pwd}`)}`
+            "Authorization": `Basic ${customBtoa(`${credential}:${pwd}`)}`
         }
     }
     const response = await fetchData(signinEndPoint, fetchParams)
     if (!response?.success) {
         messageToPrint(badCredentialmsg)
-    }else{
+    } else {
         localStorage.setItem("token", response.data)
         const data = await isAuth()
         console.log(data);
         injectData(data.data)
     }
+}
+
+export function customBtoa(input) {
+    const encoder = new TextEncoder();
+    const uint8Array = encoder.encode(input);
+    let binaryString = "";
+    uint8Array.forEach(byte => {
+        binaryString += String.fromCharCode(byte);
+    })
+    return btoa(binaryString);
 }
 
 function handleLogout(e) {
@@ -564,8 +574,10 @@ function handleLogout(e) {
     location.reload();
 }
 
-export {domain, homeEndPoint, signinEndPoint, badCredentialmsg, request, 
+export {
+    domain, homeEndPoint, signinEndPoint, badCredentialmsg, request,
     isAuth, fetchData, goodURL, addHead, addBody, loadScript, handleError,
     handleRedirection, signHead, signBody, printLoad, messageToPrint, injectData,
-    toPieSvg, toBarGraphSvg, init, auditForm, handleSignIn, handleLogout}
+    toPieSvg, toBarGraphSvg, init, auditForm, handleSignIn, handleLogout
+}
 
