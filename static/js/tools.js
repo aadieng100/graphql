@@ -442,8 +442,8 @@ function injectData(data) {
                             <h3 class="diagtitle">AUDITS DIAGRAM</h3>
                             <h6>Total: ${totalAudits}</h6>
                         </div>
-                        <h6><span style="color: white;">•</span>Passed</h6>
-                        <h6><span style="color: black;">•</span>Failed</h6>
+                        <h6><span style="color: black;">•</span>Passed</h6>
+                        <h6><span style="color: white;">•</span>Failed</h6>
                         ${toPieSvg(totalFail)}
                     </div>
     
@@ -463,8 +463,8 @@ function toPieSvg(data) {
     let pie = `
     <svg height="20" width="20" viewBox="0 0 20 20">
         <g class="circle">
-            <circle r="10" cx="10" cy="10" fill="white" />
-            <circle r="5" cx="10" cy="10" fill="white" stroke="black" stroke-width="10"
+            <circle r="10" cx="10" cy="10" fill="black" />
+            <circle r="5" cx="10" cy="10" fill="black" stroke="white" stroke-width="10"
                 stroke-dasharray="${dimension} 31.42" />
 
             <text class="tooltip white" x="10" y="5">PASSED</text>
@@ -501,8 +501,8 @@ function toBarGraphSvg(data) {
         // Calculating Y position
         const yPos = endY - 4 - (height); // Y position is 420 - 4 - (height / 2)
 
-        svgContent += `<rect x="${currentX}" y="${yPos}" height="${height}" width="40" stroke-width="0" stroke="none" fill="white" />`;
-        svgContent += `<text x="${currentX + 20}" y="${startY - 26}" style="writing-mode: tb;">${name}: ${amount}</text>`;
+        svgContent += `<rect x="${currentX}" y="${yPos + 1}" height="${height}" width="40" stroke-width="0" stroke="none" fill="dark" />`;
+        svgContent += `<text x="${currentX + 20}" y="${startY - 26}" style="writing-mode: tb;" fill="gray">${name}: ${amount}</text>`;
 
         currentX += 45; // Increment X position for the next rectangle
     });
