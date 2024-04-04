@@ -523,6 +523,10 @@ async function init() {
         loadScript('/static/js/sign.js')
     } else {
         const data = await isAuth()
+        if (data.hasOwnProperty('errors')) {
+            localStorage.removeItem('token')
+            location.reload()
+        }
         injectData(data.data)
     }
 }

@@ -345,6 +345,11 @@ header {
     border-radius: 10px;
 }
 
+.svgtext:hover {
+    transition: transform 0.3s ease-in-out;
+    transform: scale(1.08);
+}
+
 .svg2 svg {
     height: 300px;
     width: 300px;
